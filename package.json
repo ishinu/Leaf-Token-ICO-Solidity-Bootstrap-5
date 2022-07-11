@@ -1,0 +1,30 @@
+{
+  "name": "leaf-token-ico-solidity-bootstrap-5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ishinu/Leaf-Token-ICO-Solidity-Bootstrap-5.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ishinu/Leaf-Token-ICO-Solidity-Bootstrap-5/issues"
+  },
+  "homepage": "https://github.com/ishinu/Leaf-Token-ICO-Solidity-Bootstrap-5#readme",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  },
+  "dependencies": {
+    "web3": "^1.7.4"
+  }
+}
