@@ -5,6 +5,7 @@ App = {
     tokenPrice : 1000000000000000,
     tokensAvailable : 0,
     tokensSold : 0,
+    tokenDefault :100,
 
     init : function(){
         console.log('App is initialized!')
@@ -94,12 +95,70 @@ App = {
             console.log('Congratulations! Few tokens yours :)')
             location.reload()
         }) 
-    }
+    },
+
+    donate : function(){
+        let donationAddress = $('#donationAddress').val()
+        let tokensToDonate = $('#tokensToDonate').val()
+        console.log('Donation Address : ',donationAddress)
+        console.log('Donation Amount : ',tokensToDonate)
+        console.log(typeof(donationAddress))
+        return App.contracts.LEAFToken.deployed().then(function(instance){
+            tokenInstance = instance
+            return tokenInstance.donate(donationAddress,tokensToDonate,{
+                from : App.account,
+                value : 0,
+                gas :500000 
+            })
+        }).then(function(receipt){
+            console.log('Donation Successful!')
+            location.reload()
+        });
+    },
+
+    // serializeObject : function()
+    // {
+    //     var o = {};
+    //     var a = this.serializeArray();
+    //     $.each(a, function() {
+    //         if (o[this.name] !== undefined) {
+    //             if (!o[this.name].push) {
+    //                 o[this.name] = [o[this.name]];
+    //             }
+    //             o[this.name].push(this.value || '');
+    //         } else {
+    //             o[this.name] = this.value || '';
+    //         }
+    //     });
+    //     return o;
+    // }
     
 }
+
+// $.fn.serializeObject = function()
+// {
+//     var o = {};
+//     var a = this.serializeArray();
+//     $.each(a, function() {
+//         if (o[this.name] !== undefined) {
+//             if (!o[this.name].push) {
+//                 o[this.name] = [o[this.name]];
+//             }
+//             o[this.name].push(this.value || '');
+//         } else {
+//             o[this.name] = this.value || '';
+//         }
+//     });
+//     return o;
+// };
 
 $(document).ready(function(){
     $(window).on('load',function(){
         App.init();
+        // $('form').submit(function() {
+        //     // $('#result').text();
+        //     console.log(JSON.stringify($('form').serializeObject()));
+        //     return false;
+        // });
     });
 });

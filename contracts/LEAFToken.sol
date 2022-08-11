@@ -1,8 +1,10 @@
 //SPDX-License-Identifier:MIT
 
+import "@openzeppelin/contracts/access/Ownable.sol";
+
 pragma solidity <0.9.0;
 
-contract LEAFToken{
+contract LEAFToken is Ownable{
     string public name;
     string public symbol;
     string public standard;
@@ -38,6 +40,14 @@ contract LEAFToken{
         balanceOf[msg.sender]-=_value;
         balanceOf[_to]+=_value;
         emit Transfer(msg.sender,_to,_value);
+        return true;
+    }
+
+    function donate(address _to,uint256 _tokensToDonate) public onlyOwner returns (bool success) {
+        require(balanceOf[admin]>=_tokensToDonate);
+        balanceOf[admin] -= _tokensToDonate;
+        balanceOf[_to] += _tokensToDonate;
+        emit Transfer(admin,_to,_tokensToDonate);
         return true;
     }
 

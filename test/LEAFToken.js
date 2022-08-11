@@ -2,7 +2,7 @@ const LEAFToken = artifacts.require("./LEAFToken.sol");
 
 contract(LEAFToken,function(accounts){
 
-    var admin = accounts[0]
+    var admin = accounts[0];
 
     it('initializes the contract with the correct values.',function(){
         return LEAFToken.deployed().then(function(instance){
@@ -76,6 +76,33 @@ contract(LEAFToken,function(accounts){
             return tokenInstance.balanceOf(accounts[2])
         }).then(function(balance){
             assert.equal(balance.toNumber(),2500,'Receiver balance')
+        });
+    });
+
+    it('donation works properly',function(){
+        return LEAFToken.deployed().then(function(instance){
+            tokenInstance = instance;
+            return tokenInstance.donate.call(accounts[1],3000000,{from:accounts[0]})
+        }).then(assert.fail).catch(function(error){
+            assert(error.message.toString().indexOf('revert')>=0,'Invalid')
+            return tokenInstance.donate.call(accounts[1],30000)
+        }).then(function(success){
+            assert.equal(success,true,'Success')
+        }).then(assert.fail).catch(function(error){
+        }).then(assert.fail).catch(function(error){
+            assert(error.message.toString().indexOf('revert')>=0,'Only Admin can donate!')
+            assert(error.message.toString().indexOf('revert')>=0,'Not enough tokens!')
+            return tokenInstance.donate.call(accounts[1],400,{from:admin})
+        }).then(function(success){
+            assert.equal(success,true,'Success')
+            return tokenInstance.donate(accounts[1],400,{from:admin})
+        }).then(function(receipt){
+            return tokenInstance.balanceOf(admin)
+        }).then(function(adminBalance){
+            assert.equal(adminBalance.toNumber(),23600,'Admin balance')
+            return tokenInstance.balanceOf(accounts[1])
+        }).then(function(balance){
+            assert.equal(balance.toNumber(),1,'Receivers balance')
         });
     });
 });

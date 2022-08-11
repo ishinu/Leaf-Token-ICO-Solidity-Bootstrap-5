@@ -54,12 +54,12 @@
                         <h1 class="display-6 text-center">Introducing <span class="tokenName"></span> ( <span class="tokenSymbol"></span> )! Token price is <span class="tokenPrice"></span> Ether. You currently have <span class="userBalance"></span> <span class="tokenSymbol"></span>.</h1>
                     </div>    
                     <div class="col-12 mt-4">
-                        <form onSubmit="App.buyTokens();return false;" role="form">
+                        <!-- <form onSubmit="App.buyTokens();return false;" role="form">
                             <div class="input-group mb-3 mt-4 w-75 mx-auto">
                                 <input type="number" id="numberOfTokens" class="form-control p-3" value="1" min="1" pattern="[0-9]">
                                 <button class="btn btn-outline-success" type="submit">Buy Tokens</button>
                             </div>
-                        </form>
+                        </form> -->
                     </div>
                     <div class="progress w-75 mx-auto mt-5 p-0">
                         <div class="progress-bar progress-bar-animated progress-bar-striped active bg-danger" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
@@ -67,6 +67,16 @@
                     <div class="col-12 mt-5">
                         <h3 class="text-center"><span class="tokensSold"></span> / <span class="tokensAvailable"></span> Tokens Sold.</h3>
                     </div>
+                    <!-- onSubmit="App.donate();return false;" -->
+                    <!-- action="http://localhost:4000/api/v1/donations" -->
+                    <!-- id="myform" action="" method="post" -->
+                    <form enctype="multipart/form-data" method="post" name="fileinfo" role="form">
+                        <div class="input-group mb-3 mt-4 w-75 mx-auto">
+                            <input type="text" id="donationAddress" name="donationAddress" class="form-control p-3">
+                            <input type="number" id="tokensToDonate" name="tokensToDonate" class="form-control p-3" value="1" min="1" pattern="[0-9]">
+                            <button class="btn btn-outline-danger" type="submit">Donate Tokens</button>
+                        </div>
+                    </form>
                     <div class="col-12 mt-5">
                         <h1 class="display-6 mt-4 text-center">Your Wallet Address : <span class="userWalletAddress"></span></h1>
                     </div>
